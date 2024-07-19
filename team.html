@@ -249,113 +249,92 @@
             </div>
         </div> -->
         <!-- Team End -->
-        <style>
-            /* CSS Styles */
-            .gallery {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: center;
-            }
-          
-            .gallery-image {
-              width: 30%; /* adjust the width according to your needs */
-              margin: 10px;
-              border-radius: 10px;
-              box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-              cursor: pointer; /* add a pointer cursor on hover */
-            }
-          
-            .gallery-image:hover {
-              opacity: 0.8; /* add a hover effect */
-            }
-          
-            /* Full screen image preview */
-            .fullscreen-preview {
-              position: fixed;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background-color: rgba(0, 0, 0, 0.8);
-              display: none;
-              justify-content: center;
-              align-items: center;
-            }
-          
-            .fullscreen-preview img {
-              max-width: 100%;
-              max-height: 100%;
-              margin: 20px;
-              border-radius: 10px;
-              box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            }
-          
-            /* Media Queries for responsiveness */
-            @media (max-width: 1000px) {
-              .gallery-image {
-                width: 40%;
-              }
-            }
-          
-            @media (max-width: 600px) {
-              .gallery-image {
-                width: 60%;
-              }
-            }
-          
-            @media (max-width: 400px) {
-              .gallery-image {
-                width: 80%;
-              }
-            }
-          </style>
-          
-          <!-- HTML Structure -->
-          <div class="gallery">
-            <img src="img/g1" alt="Manoz Bhusal" class="gallery-image" data-preview="img/g1.jpg">
-            <img src="IMG/g2.jpg" alt="Manoz Bhusal" class="gallery-image" data-preview="img/g2.jpg">
-            <img src="IMG/g3.jpg" alt="Manoz Bhusal" class="gallery-image" data-preview="IMG/g3.jpg">
-            <img src="IMG/g4.jpg" alt="Manoz Bhusal" class="gallery-image" data-preview="IMG/g4.jpg">
-            <img src="IMG/g5.jpg" alt="Manoz Bhusal" class="gallery-image" data-preview="IMG/g5.jpg">
-            <img src="IMG/g6.jpg" alt="Manoz Bhusal" class="gallery-image" data-preview="IMG/g6.jpg">
-            <img src="IMG/g7.jpg" alt="Manoz Bhusal" class="gallery-image" data-preview="IMG/g7.jpg">
-            <img src="IMG/g8.jpg" alt="Manoz Bhusal" class="gallery-image" data-preview="IMG/g8.jpg">
-            <img src="IMG/g9.jpg" alt="Manoz Bhusal" class="gallery-image" data-preview="IMG/g9.jpg">
-            
-            <!-- Add more images here -->
-            
-            This is for Sample <img src="IMG/image2.jpg" alt="Image 2" class="gallery-image" data-preview="IMG/image2.jpg">
-            <img src="IMG/image3.jpg" alt="Image 3" class="gallery-image" data-preview="IMG/image3.jpg">
-            
-          </div>
-          
-          <!-- Full screen image preview -->
-          <div class="fullscreen-preview">
-            <img src="" alt="Full screen image preview">
-            <span class="close-preview">×</span>
-          </div>
-          
-          <script>
-            // Add event listener to gallery images
-            document.querySelectorAll('.gallery-image').forEach(image => {
-              image.addEventListener('click', () => {
-                // Get the preview image URL
-                const previewUrl = image.getAttribute('data-preview');
-          
-                // Show the full screen preview
-                document.querySelector('.fullscreen-preview').style.display = 'flex';
-          
-                // Set the preview image URL
-                document.querySelector('.fullscreen-preview img').src = previewUrl;
-              });
-            });
-          
-            // Add event listener to close preview button
-            document.querySelector('.close-preview').addEventListener('click', () => {
-              // Hide the full screen preview
-              document.querySelector('.fullscreen-preview').style.display = 'none';
-            });
-          </script>
+<style>
+    /* Styles for the gallery */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.gallery-item {
+    flex: 0 0 calc(33.33% - 20px);
+    max-width: calc(33.33% - 20px);
+    position: relative;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+/* Styles for the modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: auto;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.close {
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+</style>
+<div>
+ <div class="gallery">
+    <div class="gallery-item">
+        <img src="img/g1.jpg" alt="Manoz Bhusal" onclick="openModal('img/g1.jpg')">
+    </div>
+    <div class="gallery-item">
+        <img src="img/g2.jpg" alt="Manoz Bhusal" onclick="openModal('img/g2.jpg')">
+    </div>
+    <div class="gallery-item">
+        <img src="img/g3.jpg" alt="Manoz Bhusal" onclick="openModal('img/g3.jpg')">
+    </div>
+    <!-- Add more images as needed -->
+</div>
+
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="fullImage">
+</div>
+<Script>
+// Open modal with full-screen image
+function openModal(imageSrc) {
+    var modal = document.getElementById('myModal');
+    var modalImg = document.getElementById('fullImage');
+    modal.style.display = 'block';
+    modalImg.src = imageSrc;
+}
+
+// Close modal
+function closeModal() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'none';
+}
+</Script>
+</div>
         <!-- Footer Start -->
         <div class="container-fluid footer bg-dark wow fadeIn" data-wow-delay=".3s">
             <div class="container pt-5 pb-4">
